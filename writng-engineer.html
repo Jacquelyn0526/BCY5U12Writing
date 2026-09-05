@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我是小小建筑师 - AI 辅助自学写作平台</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 3px;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 1.5s infinite;
+        }
+        @media (max-width: 640px) {
+            input, textarea, button {
+                font-size: 14px !important; /* Prevents auto-zoom on iOS safari */
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 flex flex-col selection:bg-indigo-100 selection:text-indigo-800">
+
+    <!-- Header Navbar -->
+    <header class="bg-indigo-700 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2.5 sm:space-x-3">
+                <div class="bg-white/20 p-1.5 sm:p-2 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-compass-drafting text-xl sm:text-2xl text-amber-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-xl font-bold tracking-tight flex items-center flex-wrap">
+                        我是小小建筑师 
+                        <span class="text-[10px] sm:text-xs bg-amber-400 text-slate-900 font-semibold px-1.5 py-0.5 rounded ml-1.5 mt-0.5">Pembelajaran AI</span>
+                    </h1>
+                    <p class="text-[11px] sm:text-xs text-indigo-200">Bimbingan Penulisan Bahasa Cina untuk Murid Non-Cina</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-2 text-sm text-indigo-100">
+                <span class="bg-indigo-800/60 px-3 py-1 rounded-full border border-indigo-500/30">
+                    <i class="fa-solid fa-graduation-cap text-amber-300 mr-1"></i> 适合低词汇量非华裔生
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+
+        <!-- LEFT COLUMN: Task Guide & Vocabulary & Sentence Patterns (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4 sm:space-y-6">
+
+            <!-- Task Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-2.5 mb-3">
+                    <i class="fa-solid fa-list-check text-indigo-600 text-base sm:text-lg"></i>
+                    <h2 class="font-bold text-slate-800 text-base sm:text-lg">📝 写作任务 (Tugasan Penulisan)</h2>
+                </div>
+                <div class="space-y-2 text-xs sm:text-sm text-slate-600">
+                    <div class="flex items-start space-x-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">1</span>
+                        <p><strong>画一画与标记 (Lukis & Label):</strong> 在纸上画出你理想的房子，用中文标出最少 4 个部位。</p>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 flex-shrink-0">2</span>
+                        <p><strong>写一段话 (Tulis Perenggan):</strong> 利用词汇和句式，写出 4-6 句话介绍你的房屋设计。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vocabulary Bank -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-book-bookmark text-indigo-600 text-lg"></i>
+                        <h2 class="font-bold text-slate-800 text-lg">📚 分类词汇库 (Kosa Kata)</h2>
+                    </div>
+                    <span class="text-xs text-slate-500">点击 🔊 可听发音，点击词汇可加入草稿</span>
+                </div>
+
+                <!-- Tabs/Category Buttons -->
+                <div class="space-y-4">
+                    <!-- Category A: Structure -->
+                    <div>
+                        <h3 class="text-xs font-bold text-indigo-700 uppercase tracking-wider mb-2 flex items-center">
+                            <i class="fa-solid fa-house mr-1.5"></i> (A) 房屋结构与房间 (Bahagian & Bilik)
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="vocab-group-a">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Category B: Features -->
+                    <div>
+                        <h3 class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2 flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> (B) 房屋特点 (Ciri-ciri Khas)
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="vocab-group-b">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Category C: Colors & Adjectives -->
+                    <div>
+                        <h3 class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2 flex items-center">
+                            <i class="fa-solid fa-palette mr-1.5"></i> (C) 颜色与形容词 (Warna & Kata Sifat)
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="vocab-group-c">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sentence Patterns -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5">
+                <div class="flex items-center space-x-2 border-b border-slate-100 pb-2.5 mb-3">
+                    <i class="fa-solid fa-cubes text-indigo-600 text-base sm:text-lg"></i>
+                    <h2 class="font-bold text-slate-800 text-base sm:text-lg">🧩 实用句式 (Pola Ayat)</h2>
+                </div>
+
+                <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
+                    <div class="p-2.5 sm:p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <span class="text-[10px] sm:text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded">1. 自我介绍</span>
+                        <p class="font-semibold text-slate-800 mt-1">我是一名建筑师，这是我设计的房子。</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 italic">Saya seorang jurubina, ini ialah rumah yang saya reka.</p>
+                    </div>
+
+                    <div class="p-2.5 sm:p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <span class="text-[10px] sm:text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded">2. 房屋特点 (Khas)</span>
+                        <p class="font-semibold text-slate-800 mt-1">这座房子的特点是 <span class="text-emerald-600 underline">[不用钉子 / 环保 / 浮在水面上]</span>。</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 italic">Ciri khas rumah ini ialah [tidak guna paku / mesra alam / terapung].</p>
+                    </div>
+
+                    <div class="p-2.5 sm:p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <span class="text-[10px] sm:text-xs font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded">3. 描写颜色</span>
+                        <p class="font-semibold text-slate-800 mt-1">我的房子有 <span class="text-amber-600 underline">[红色]</span> 的 <span class="text-amber-600 underline">[屋顶]</span>。</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 italic">Rumah saya mempunyai [bumbung] berwarna [merah].</p>
+                    </div>
+
+                    <div class="p-2.5 sm:p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-indigo-300 transition-colors">
+                        <span class="text-[10px] sm:text-xs font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">4. 房间与设施</span>
+                        <p class="font-semibold text-slate-800 mt-1">房子里有 <span class="text-blue-600 underline">[三个卧室]</span> 和一个 <span class="text-blue-600 underline">[大客厅]</span>。</p>
+                        <p class="text-[11px] sm:text-xs text-slate-500 italic">Di dalam rumah ada [3 bilik tidur] dan [ruang tamu besar].</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- RIGHT COLUMN: AI Chatbot Assistant & Interactive Drafting Pad (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4 sm:space-y-6 flex flex-col">
+
+            <!-- AI Chatbot Box -->
+            <section class="bg-white rounded-xl shadow-md border border-indigo-100 flex flex-col h-[420px] sm:h-[480px] overflow-hidden">
+                <!-- Chat Header -->
+                <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white p-3 sm:p-3.5 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-400 flex items-center justify-center text-slate-900 font-bold shadow-sm">
+                            <i class="fa-solid fa-robot text-xs sm:text-sm"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xs sm:text-sm leading-tight">AI 写作助手 (Pembantu AI)</h3>
+                            <p class="text-[10px] sm:text-[11px] text-indigo-200">用 BM 或英文输入你的想法，为你转成华语！</p>
+                        </div>
+                    </div>
+                    <button onclick="clearChat()" class="text-[11px] sm:text-xs bg-indigo-700/60 active:bg-indigo-800 active:scale-95 px-2.5 py-1 rounded border border-indigo-400/30 text-indigo-100 transition-all touch-manipulation">
+                        <i class="fa-solid fa-rotate-right mr-1"></i>清空
+                    </button>
+                </div>
+
+                <!-- Chat Messages Body -->
+                <div id="chat-messages" class="flex-grow p-3 sm:p-4 overflow-y-auto space-y-3 chat-scroll bg-slate-50/50">
+                    <!-- Welcome AI Message -->
+                    <div class="flex items-start space-x-2">
+                        <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-slate-900 text-xs font-bold flex-shrink-0 mt-0.5">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[88%] sm:max-w-[85%] text-xs space-y-1">
+                            <p class="font-bold text-indigo-700">Apa khabar! 👋</p>
+                            <p class="text-slate-700">Tulis idea rumah idaman anda dalam Bahasa Melayu atau Bahasa Inggeris. Saya akan bantu terjemah ke Bahasa Cina beserta Pinyin!</p>
+                            <div class="pt-1 text-[11px] text-slate-500 italic border-t border-slate-100">
+                                Contoh: "Saya seorang jurubina. Rumah saya guna kayu dan tak pakai paku"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Area -->
+                <div class="p-2.5 sm:p-3 bg-white border-t border-slate-200">
+                    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-2">
+                        <input type="text" id="chat-input" 
+                            placeholder="Taip idea anda (cth: Rumah saya mesra alam)..." 
+                            class="flex-grow px-3 py-2 text-xs sm:text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <button type="submit" id="chat-send-btn" 
+                            class="bg-indigo-600 active:bg-indigo-700 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium flex items-center justify-center transition-all shadow-sm active:scale-95 touch-manipulation min-w-[44px]">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Student Writing Draft Workspace -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5 flex-grow flex flex-col">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-to-square text-indigo-600 text-base sm:text-lg"></i>
+                        <h2 class="font-bold text-slate-800 text-sm sm:text-base">✍️ 我的写作草稿箱 (Draf Saya)</h2>
+                    </div>
+                    <span id="char-count" class="text-xs font-semibold text-slate-400">0 字</span>
+                </div>
+
+                <!-- Textarea -->
+                <textarea id="draft-textarea" oninput="updateCharCount()"
+                    placeholder="在此组合你的句子，写成一个完整段落...&#10;Contoh: 我是一名建筑师。这是我设计的房子..." 
+                    class="w-full flex-grow h-36 sm:h-40 p-3 text-xs sm:text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 leading-relaxed resize-none"></textarea>
+
+                <!-- Action Buttons -->
+                <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <button onclick="readAloudDraft()" class="flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 bg-slate-100 active:bg-slate-200 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition-colors flex items-center justify-center space-x-1 touch-manipulation">
+                            <i class="fa-solid fa-volume-high text-indigo-600"></i>
+                            <span>朗读草稿</span>
+                        </button>
+                        <button onclick="copyDraft()" class="flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 bg-slate-100 active:bg-slate-200 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg transition-colors flex items-center justify-center space-x-1 touch-manipulation">
+                            <i class="fa-regular fa-copy text-indigo-600"></i>
+                            <span>复制文本</span>
+                        </button>
+                    </div>
+
+                    <button onclick="checkDraftWithAI()" id="check-draft-btn" class="w-full sm:w-auto px-4 py-2 sm:py-1.5 bg-emerald-600 active:bg-emerald-700 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium rounded-lg shadow-sm transition-all flex items-center justify-center space-x-1.5 touch-manipulation active:scale-98">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span>AI 检查草稿 (Semak Draf)</span>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Toast Notification Box -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-800 text-white text-xs px-4 py-2.5 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center space-x-2">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg">已复制！</span>
+    </div>
+
+    <script>
+        // Vocabulary Dataset with Pinyin and Malay
+        const vocabData = {
+            a: [
+                { zh: "房子", py: "fáng zi", ms: "Rumah" },
+                { zh: "屋顶", py: "wū dǐng", ms: "Bumbung" },
+                { zh: "大门", py: "dà mén", ms: "Pintu utama" },
+                { zh: "窗户", py: "chuāng hu", ms: "Tingkap" },
+                { zh: "客厅", py: "kè tīng", ms: "Ruang tamu" },
+                { zh: "卧室", py: "wò shì", ms: "Bilik tidur" },
+                { zh: "花园", py: "huā yuán", ms: "Taman" },
+                { zh: "墙壁", py: "qiáng bì", ms: "Dinding" }
+            ],
+            b: [
+                { zh: "不用钉子", py: "bú yòng dīng zi", ms: "Tanpa paku" },
+                { zh: "用木头建造", py: "yòng mù tou jiàn zào", ms: "Bina dari kayu" },
+                { zh: "环保", py: "huán bǎo", ms: "Mesra alam" },
+                { zh: "安全", py: "ān quán", ms: "Selamat" },
+                { zh: "智能", py: "zhì néng", ms: "Pintar / Canggih" },
+                { zh: "浮在水面上", py: "fú zài shuǐ miàn shàng", ms: "Terapung atas air" }
+            ],
+            c: [
+                { zh: "红色", py: "hóng sè", ms: "Merah" },
+                { zh: "蓝色", py: "lán sè", ms: "Biru" },
+                { zh: "大", py: "dà", ms: "Besar" },
+                { zh: "漂亮", py: "piào liang", ms: "Cantik" },
+                { zh: "舒服", py: "shū fu", ms: "Selesa" },
+                { zh: "明亮", py: "míng liàng", ms: "Terang" }
+            ]
+        };
+
+        window.onload = function() {
+            renderVocabCards();
+            updateCharCount();
+        };
+
+        // Render Vocabulary Cards
+        function renderVocabCards() {
+            renderCategory('vocab-group-a', vocabData.a, 'border-indigo-100 hover:border-indigo-300 bg-indigo-50/30');
+            renderCategory('vocab-group-b', vocabData.b, 'border-emerald-100 hover:border-emerald-300 bg-emerald-50/30');
+            renderCategory('vocab-group-c', vocabData.c, 'border-amber-100 hover:border-amber-300 bg-amber-50/30');
+        }
+
+        function renderCategory(containerId, list, extraClasses) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = list.map(item => `
+                <div class="p-2 sm:p-2.5 rounded-lg border ${extraClasses} transition-all cursor-pointer active:scale-98 touch-manipulation flex flex-col justify-between group relative" onclick="insertToDraft('${item.zh}')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-800 text-xs sm:text-sm group-hover:text-indigo-600">${item.zh}</span>
+                        <button onclick="event.stopPropagation(); speakText('${item.zh}')" title="Sebut/Dengar" class="text-slate-400 hover:text-indigo-600 text-xs p-1 touch-manipulation">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <div class="text-[10px] sm:text-[11px] text-slate-500 font-mono">${item.py}</div>
+                    <div class="text-[10px] sm:text-[11px] text-amber-700 italic font-sans">${item.ms}</div>
+                </div>
+            `).join('');
+        }
+
+        // Voice Speech Output
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.85; // slightly slower for learners
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("Sistem pelayar anda tidak menyokong fungsi suara.", "error");
+            }
+        }
+
+        // Insert Word or Sentence into Draft Textarea
+        function insertToDraft(text) {
+            const textarea = document.getElementById('draft-textarea');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const currentVal = textarea.value;
+
+            textarea.value = currentVal.substring(0, start) + text + currentVal.substring(end);
+            textarea.focus();
+            textarea.selectionStart = textarea.selectionEnd = start + text.length;
+            updateCharCount();
+            showToast(`已添加 "${text}" 到草稿箱！`);
+        }
+
+        function updateCharCount() {
+            const val = document.getElementById('draft-textarea').value;
+            document.getElementById('char-count').innerText = `${val.length} 字`;
+        }
+
+        function readAloudDraft() {
+            const val = document.getElementById('draft-textarea').value.trim();
+            if(!val) {
+                showToast("草稿箱是空的，无法朗读！", "error");
+                return;
+            }
+            speakText(val);
+        }
+
+        function copyDraft() {
+            const val = document.getElementById('draft-textarea').value.trim();
+            if(!val) {
+                showToast("没有可复制的内容！", "error");
+                return;
+            }
+            // Use execCommand fallback for iframe support
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = val;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            showToast("草稿已成功复制到剪贴板！");
+        }
+
+        // Gemini API Request Engine
+        async function callGeminiAPI(userPrompt, systemInstruction) {
+            const apiKey = ""; // Canvas runtime provides standard key
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            // Exponential backoff logic
+            let attempts = 0;
+            let delay = 1000;
+            while (attempts < 3) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, jawapan tidak ditemui.";
+                    }
+                } catch (err) {
+                    // Retry silently
+                }
+                attempts++;
+                await new Promise(res => setTimeout(res, delay));
+                delay *= 2;
+            }
+            return "Rangkaian sibuk. Sila cuba lagi sebentar lagi.";
+        }
+
+        // Chatbot Interface Controller
+        async function handleChatSubmit(event) {
+            event.preventDefault();
+            const inputEl = document.getElementById('chat-input');
+            const text = inputEl.value.trim();
+            if (!text) return;
+
+            // Clear input & append User message
+            inputEl.value = '';
+            appendChatMessage('user', text);
+
+            // Show Loading Indicator
+            const loadingId = appendChatLoading();
+
+            // Prepare System Prompt for Non-native Beginner Learners
+            const systemPrompt = `You are an encouraging, friendly Chinese language teaching assistant for non-native primary school students in Malaysia (Malay speakers learning Chinese as a second language).
+Your task is to take the student's design idea (expressed in Malay, English, or simple Chinese) and translate/format it into a SIMPLE, EASY-TO-LEARN Chinese sentence appropriate for low-vocabulary students writing about their dream house.
+
+ALWAYS structure your response cleanly in HTML using this exact structure:
+<div class="space-y-1 text-xs">
+  <p class="font-bold text-indigo-700 text-sm mb-1">[Target Chinese Sentence]</p>
+  <p class="text-slate-600 font-mono"><i class="fa-solid fa-align-left mr-1 text-slate-400"></i>[Pinyin]</p>
+  <p class="text-amber-800 bg-amber-50 px-2 py-1 rounded text-[11px] border border-amber-100"><i class="fa-solid fa-language mr-1"></i><strong>BM:</strong> [Malay explanation or direct translation]</p>
+  <div class="pt-1 flex gap-1">
+    <button onclick="insertToDraft('[Target Chinese Sentence]')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2 py-1 rounded text-[10px] font-semibold flex items-center space-x-1">
+      <i class="fa-solid fa-plus"></i><span>Masukkan ke Draf</span>
+    </button>
+    <button onclick="speakText('[Target Chinese Sentence]')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-2 py-1 rounded text-[10px]">
+      <i class="fa-solid fa-volume-high"></i>
+    </button>
+  </div>
+</div>
+
+Keep the Chinese sentence short, correct, and suitable for primary school beginners. Do not include unnecessary conversational padding outside this HTML structure.`;
+
+            const aiReply = await callGeminiAPI(text, systemPrompt);
+
+            // Remove Loading & Render Reply
+            removeChatMessage(loadingId);
+            appendChatMessage('ai', aiReply, true);
+        }
+
+        function appendChatMessage(role, content, isHtml = false) {
+            const chatContainer = document.getElementById('chat-messages');
+            const msgId = 'msg-' + Date.now();
+
+            if (role === 'user') {
+                const html = `
+                    <div id="${msgId}" class="flex items-start justify-end space-x-2">
+                        <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none text-xs max-w-[85%] shadow-sm">
+                            <p>${escapeHtml(content)}</p>
+                        </div>
+                        <div class="w-7 h-7 rounded-full bg-slate-300 flex items-center justify-center text-slate-700 text-xs font-bold flex-shrink-0 mt-0.5">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', html);
+            } else {
+                const html = `
+                    <div id="${msgId}" class="flex items-start space-x-2">
+                        <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-slate-900 text-xs font-bold flex-shrink-0 mt-0.5">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[85%] text-xs">
+                            ${isHtml ? content : `<p class="text-slate-700">${escapeHtml(content)}</p>`}
+                        </div>
+                    </div>
+                `;
+                chatContainer.insertAdjacentHTML('beforeend', html);
+            }
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return msgId;
+        }
+
+        function appendChatLoading() {
+            const chatContainer = document.getElementById('chat-messages');
+            const msgId = 'loading-' + Date.now();
+            const html = `
+                <div id="${msgId}" class="flex items-start space-x-2">
+                    <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-slate-900 text-xs font-bold flex-shrink-0 mt-0.5">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm text-xs text-slate-500 flex items-center space-x-2">
+                        <i class="fa-solid fa-spinner fa-spin text-indigo-600"></i>
+                        <span class="animate-pulse-slow">Sedang menterjemah...</span>
+                    </div>
+                </div>
+            `;
+            chatContainer.insertAdjacentHTML('beforeend', html);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return msgId;
+        }
+
+        function removeChatMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function clearChat() {
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML = `
+                <div class="flex items-start space-x-2">
+                    <div class="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-slate-900 text-xs font-bold flex-shrink-0 mt-0.5">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[85%] text-xs space-y-1">
+                        <p class="font-bold text-indigo-700">Apa khabar! 👋</p>
+                        <p class="text-slate-700">Tulis idea rumah idaman anda dalam Bahasa Melayu atau Bahasa Inggeris. Saya akan bantu terjemah ke Bahasa Cina beserta Pinyin!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // AI Review Student Paragraph
+        async function checkDraftWithAI() {
+            const draftText = document.getElementById('draft-textarea').value.trim();
+            if (!draftText) {
+                showToast("Sila tulis draf terlebih dahulu!", "error");
+                return;
+            }
+
+            const btn = document.getElementById('check-draft-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Menyemak...</span>`;
+
+            const systemPrompt = `You are a supportive Chinese teacher checking a non-native student's short essay about their dream house design.
+Evaluate their draft (written in Chinese). Provide constructive, encouraging feedback in simple Malay/English.
+Highlight strengths, correct grammar errors gently, and provide a polished final version with Pinyin.
+
+Format output as clear HTML:
+<div class="space-y-2 text-xs">
+    <div class="p-2 bg-emerald-50 text-emerald-800 rounded border border-emerald-200 font-medium">
+        <i class="fa-solid fa-thumbs-up mr-1"></i><strong>Pujian:</strong> Syabas! Penulisan anda sangat baik.
+    </div>
+    <div class="p-2 bg-indigo-50 text-indigo-900 rounded border border-indigo-200">
+        <strong class="block mb-1 text-indigo-700"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Cadangan Penambahbaikan:</strong>
+        [Malay explanation of corrections if any]
+    </div>
+</div>`;
+
+            const reply = await callGeminiAPI(`Review this student's draft: "${draftText}"`, systemPrompt);
+
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-sparkles"></i> <span>AI 检查草稿 (Semak Draf)</span>`;
+
+            // Open reply in chat
+            appendChatMessage('ai', `<strong>Hasil Semakan Draf Anda:</strong><br><br>${reply}`, true);
+        }
+
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = msg;
+            if (type === "error") {
+                toastIcon.className = "fa-solid fa-circle-exclamation text-amber-400";
+            } else {
+                toastIcon.className = "fa-solid fa-circle-check text-emerald-400";
+            }
+
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
